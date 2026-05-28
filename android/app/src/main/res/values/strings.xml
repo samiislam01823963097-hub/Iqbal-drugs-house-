@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Iqbal Drug House</string>
+    <string name="title_activity_main">Iqbal Drug House</string>
+    <string name="package_name">com.iqbaldrughouse.pharmacypos</string>
+    <string name="custom_url_scheme">com.iqbaldrughouse.pharmacypos</string>
+</resources>
