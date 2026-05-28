@@ -1,0 +1,191 @@
+{
+  "entities": {
+    "Medicine": {
+      "title": "Medicine",
+      "description": "A database-agnostic model representing medicine inventory items",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Unique identifier for the medicine"
+        },
+        "name": {
+          "type": "string",
+          "description": "Commercial brand name of the medicine"
+        },
+        "company": {
+          "type": "string",
+          "description": "Pharmaceutical manufacturer company"
+        },
+        "salt": {
+          "type": "string",
+          "description": "Active chemical ingredient"
+        },
+        "purchasePrice": {
+          "type": "number",
+          "description": "Wholesale buy price per unit"
+        },
+        "sellingPrice": {
+          "type": "number",
+          "description": "Retail sell price per unit"
+        },
+        "stock": {
+          "type": "number",
+          "description": "Current on-hand stock count"
+        },
+        "expiry": {
+          "type": "string",
+          "description": "Expiration date in YYYY-MM-DD"
+        },
+        "shelf": {
+          "type": "string",
+          "description": "Storage rank shelf identifier"
+        },
+        "supplier": {
+          "type": "string",
+          "description": "Default supplier name"
+        }
+      },
+      "required": ["id", "name", "company", "purchasePrice", "sellingPrice", "stock"]
+    },
+    "Bill": {
+      "title": "Bill",
+      "description": "Customer invoice transactions",
+      "type": "object",
+      "properties": {
+        "billNo": {
+          "type": "string",
+          "description": "Unique invoice billing identifier"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation date of the transaction"
+        },
+        "customer": {
+          "type": "string",
+          "description": "Customer name or Guest identifier"
+        },
+        "subtotal": {
+          "type": "number"
+        },
+        "discountPercent": {
+          "type": "number"
+        },
+        "discountVal": {
+          "type": "number"
+        },
+        "grandTotal": {
+          "type": "number"
+        },
+        "cashierName": {
+          "type": "string"
+        }
+      },
+      "required": ["billNo", "date", "customer", "subtotal", "grandTotal"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Supply chains and procurement orders from distributors",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique purchase order identifier"
+        },
+        "medId": {
+          "type": "number"
+        },
+        "medName": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "number"
+        },
+        "supplier": {
+          "type": "string"
+        },
+        "expectedDate": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Received", "Cancelled"]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "receivedDate": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "medId", "qty", "supplier", "status", "createdAt"]
+    },
+    "ReturnLog": {
+      "title": "ReturnLog",
+      "description": "Inward sales returns and stock restoration records",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "billNo": {
+          "type": "string"
+        },
+        "medId": {
+          "type": "number"
+        },
+        "medName": {
+          "type": "string"
+        },
+        "qty": {
+          "type": "number"
+        }
+      },
+      "required": ["id", "date", "billNo", "medId", "qty"]
+    },
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Counter / Operator access accounts",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "cashier", "stock_manager"]
+        }
+      },
+      "required": ["username", "password", "role"]
+    }
+  },
+  "firestore": {
+    "medicines": {
+      "schema": "Medicine",
+      "description": "Collection of stock medications in pharmacy"
+    },
+    "bills": {
+      "schema": "Bill",
+      "description": "Store receipt ledger histories"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Supply chain wholesale orders"
+    },
+    "returns": {
+      "schema": "ReturnLog",
+      "description": "Logged customer drug return logs"
+    },
+    "users": {
+      "schema": "UserAccount",
+      "description": "Counter operator account details"
+    }
+  }
+}

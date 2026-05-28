@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@media print {
+  /* Dissolve all outer containers, modal card wrappers, borders, shadows and margins to keep print target isolated */
+  body, 
+  html, 
+  #root, 
+  #root > div, 
+  main, 
+  .py-4, 
+  .fixed, 
+  .inset-0, 
+  [role="dialog"], 
+  [role="dialog"] > div,
+  .overflow-y-auto {
+    background: transparent !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    position: static !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Reset standard document parameters */
+  body, html {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide system screen elements - menus, widgets, logs, buttons */
+  header, 
+  nav, 
+  button, 
+  input, 
+  select, 
+  textarea,
+  .print\:hidden,
+  .print-hidden,
+  .safety-stock-alert,
+  #root > div > header,
+  #root > div > nav,
+  .absolute.right-2.top-2.text-slate-400 {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  /* Format and position the target A4 sheet output */
+  .print-target {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 297mm !important;
+    padding: 20mm !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-sizing: border-box !important;
+    z-index: 99999 !important;
+    page-break-after: always;
+  }
+
+  /* Fix high contrast colored typography on white paper copy */
+  .print-text-black, 
+  .text-slate-900, 
+  .text-slate-800, 
+  .text-slate-700, 
+  .text-slate-650, 
+  .text-slate-500, 
+  .text-slate-400,
+  span, p, h2, h3, h4, td, th {
+    color: #000000 !important;
+  }
+  
+  /* Green success indicators for margins & revenues on paper */
+  .text-emerald-600, 
+  .text-emerald-650, 
+  .text-emerald-700 {
+    color: #047857 !important; /* Deep thermal-safe safe emerald green */
+    font-weight: 800 !important;
+  }
+
+  /* Red danger warning indicators for deficits on paper */
+  .text-rose-500,
+  .text-rose-600, 
+  .text-rose-650 {
+    color: #b91c1c !important; /* Deep thermal-safe bold red */
+    font-weight: 800 !important;
+  }
+
+  /* Table outlines styling */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    border-bottom: 1px solid #cbd5e1 !important;
+    padding: 6px 4px !important;
+    font-size: 10px !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+  }
+
+  /* Shelf tags print labels alignment in rows */
+  .print\:grid-cols-2 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 15px !important;
+  }
+}

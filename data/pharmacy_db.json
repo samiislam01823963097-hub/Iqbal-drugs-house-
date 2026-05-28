@@ -1,0 +1,95 @@
+{
+  "medicines": [
+    {
+      "id": 101,
+      "name": "Paracetamol 500mg (Napa)",
+      "company": "Beximco Pharmaceuticals",
+      "salt": "Paracetamol",
+      "purchasePrice": 22.0,
+      "sellingPrice": 30.0,
+      "stock": 145,
+      "expiry": "2027-12-15",
+      "shelf": "Rack A-1"
+    },
+    {
+      "id": 102,
+      "name": "Azithromycin 250mg",
+      "company": "Square Pharmaceuticals",
+      "salt": "Azithromycin",
+      "purchasePrice": 55.0,
+      "sellingPrice": 72.0,
+      "stock": 75,
+      "expiry": "2026-12-20",
+      "shelf": "Rack B-3"
+    },
+    {
+      "id": 103,
+      "name": "Amoxicillin 500mg (Moxacil)",
+      "company": "Renata Limited",
+      "salt": "Amoxicillin",
+      "purchasePrice": 38.0,
+      "sellingPrice": 50.0,
+      "stock": 8,
+      "expiry": "2027-09-10",
+      "shelf": "Rack A-2"
+    },
+    {
+      "id": 104,
+      "name": "Cetirizine 10mg (Atova)",
+      "company": "Incepta Pharmaceuticals",
+      "salt": "Cetirizine",
+      "purchasePrice": 15.0,
+      "sellingPrice": 25.0,
+      "stock": 190,
+      "expiry": "2027-03-01",
+      "shelf": "Rack C-1"
+    },
+    {
+      "id": 105,
+      "name": "Omeprazole 20mg (Seclo)",
+      "company": "Square Pharmaceuticals",
+      "salt": "Omeprazole",
+      "purchasePrice": 42.0,
+      "sellingPrice": 58.0,
+      "stock": 3,
+      "expiry": "2026-08-30",
+      "shelf": "Rack D-2"
+    },
+    {
+      "id": 106,
+      "name": "Metformin 500mg",
+      "company": "ACI Limited",
+      "salt": "Metformin",
+      "purchasePrice": 28.0,
+      "sellingPrice": 40.0,
+      "stock": 55,
+      "expiry": "2027-07-15",
+      "shelf": "Rack E-4"
+    },
+    {
+      "id": 107,
+      "name": "Ibuprofen 400mg",
+      "company": "Opsonin Pharma",
+      "salt": "Ibuprofen",
+      "purchasePrice": 22.0,
+      "sellingPrice": 35.0,
+      "stock": 0,
+      "expiry": "2026-05-01",
+      "shelf": "Rack F-1"
+    },
+    {
+      "id": 108,
+      "name": "Dolo 650mg",
+      "company": "Micro Labs",
+      "salt": "Paracetamol",
+      "purchasePrice": 24.0,
+      "sellingPrice": 33.0,
+      "stock": 6,
+      "expiry": "2027-02-28",
+      "shelf": "Rack A-1"
+    }
+  ],
+  "bills": [],
+  "returns": [],
+  "orders": []
+}

@@ -1,0 +1,98 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // Primitive Definitions and Guards
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function existing() {
+      return resource.data;
+    }
+
+    // Collection Security Match Rules
+    match /medicines/{medId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidMedicine(incoming());
+      allow update: if isSignedIn() && isValidMedicine(incoming()) && (
+        // Allow updating only stock levels, pricing limits, shelf configurations, supplier records, or expiry bounds
+        incoming().diff(existing()).affectedKeys().hasOnly(['stock', 'sellingPrice', 'purchasePrice', 'shelf', 'supplier', 'expiry'])
+      );
+      allow delete: if isSignedIn();
+    }
+
+    function isValidMedicine(med) {
+      return med.keys().hasAll(['id', 'name', 'company', 'sellingPrice'])
+        && med.id is int
+        && med.name is string && med.name.size() > 0 && med.name.size() <= 200
+        && med.company is string && med.company.size() > 0 && med.company.size() <= 200
+        && med.sellingPrice is number && med.sellingPrice >= 0;
+    }
+
+    match /bills/{billNo} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidBill(incoming());
+      allow update, delete: if false; // Invoices are immutable ledger items
+    }
+
+    function isValidBill(bill) {
+      return bill.keys().hasAll(['billNo', 'date', 'customer', 'grandTotal'])
+        && bill.billNo is string && bill.billNo.size() > 0 && bill.billNo.size() <= 128
+        && bill.date is string && bill.date.size() <= 100
+        && bill.customer is string && bill.customer.size() <= 200
+        && bill.grandTotal is number && bill.grandTotal >= 0;
+    }
+
+    match /orders/{orderId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidOrder(incoming());
+      allow update: if isSignedIn() && isValidOrder(incoming()) && (
+        // Only state transformations of supplier orders are permissible
+         incoming().diff(existing()).affectedKeys().hasOnly(['status', 'receivedDate'])
+      );
+      allow delete: if false;
+    }
+
+    function isValidOrder(ord) {
+      return ord.keys().hasAll(['id', 'medId', 'qty', 'status', 'createdAt'])
+        && ord.id is string && ord.id.size() <= 128
+        && ord.medId is int
+        && ord.qty is number && ord.qty >= 0
+        && (ord.status == 'Pending' || ord.status == 'Received' || ord.status == 'Cancelled');
+    }
+
+    match /returns/{returnId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidReturn(incoming());
+      allow update, delete: if false; // Log entries are terminal
+    }
+
+    match /users/{username} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    function isValidReturn(ret) {
+      return ret.keys().hasAll(['id', 'date', 'billNo', 'medId', 'qty'])
+        && ret.id is string && ret.id.size() <= 128
+        && ret.date is string && ret.date.size() <= 100
+        && ret.billNo is string && ret.billNo.size() <= 128
+        && ret.medId is int
+        && ret.qty is number && ret.qty >= 0;
+    }
+  }
+}
